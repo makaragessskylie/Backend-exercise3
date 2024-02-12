@@ -1,9 +1,14 @@
-const express = require('express');
-const app = express();
-const members = require('./members');
-const users = require('./users');
+const moment = require('moment')
+const members = require('./members')
+const users = require('./users')
 
-const PORT = 3000;
+const morgan = require('morgan')
+const express = require('morgan')
+const app = express()
+const port = 3000
+const hostname = '127.0.0.1'
+
+app.use(morgan('tiny'))
 
 app.get('/', (req, res) => {
   res.send('This is the home page');
@@ -15,8 +20,8 @@ app.get('/about', (req, res) => {
     Status: 'success',
     Message: 'response success',
     Description: 'Exercise #03',
-    Date: currentDate,
-    Data: members.getMembers(),
+    Date: moment().format(),
+    Data: members
   };
   res.json(response);
 });
